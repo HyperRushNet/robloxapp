@@ -1,0 +1,16 @@
+{
+  "name": "Mijn Web App",
+  "short_name": "WebApp",
+  "start_url": "/index.html",  // Zorg dat dit verwijst naar een lokaal bestand
+  "scope": "/",  // Zorg ervoor dat de scope hetzelfde is als de root
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.ico",  // Zorg ervoor dat je icoon ook correct is ingesteld
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
