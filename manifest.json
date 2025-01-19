@@ -1,16 +1,15 @@
 {
-  "name": "Mijn Web App",
-  "short_name": "WebApp",
-  "start_url": "/index.html",  // Zorg dat dit verwijst naar een lokaal bestand
-  "scope": "/",  // Zorg ervoor dat de scope hetzelfde is als de root
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "short_name": "Mijn ",
+  "name": "HyperRush Net",
   "icons": [
     {
-      "src": "/favicon.ico",  // Zorg ervoor dat je icoon ook correct is ingesteld
-      "sizes": "512x512",
+      "src": "https://cdn.glitch.global/9f0d898a-f212-4456-a044-c8849a98f902/thumbnails%2FTheHyperLogo%20(1).png?1737233725726",
+      "sizes": "192x192",
       "type": "image/png"
     }
-  ]
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000"
 }
