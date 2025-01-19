@@ -43,12 +43,12 @@
     }
 
     window.onload = () => {
-      // Zorg ervoor dat de prompt meteen getoond wordt zodra de pagina geladen is
+      // Luister naar de 'beforeinstallprompt' gebeurtenis
       window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        
-        // Prompt de gebruiker direct zonder op een knop te klikken
+        e.preventDefault(); // Voorkom de standaard prompt
+        deferredPrompt = e; // Bewaar de gebeurtenis
+
+        // Toon de prompt zodra de pagina geladen is
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
