@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#000000"> <!-- De bovenbalkkleur direct instellen op wit -->
+  <meta name="theme-color" content="#000000">
   <title>Installeer Mijn Web App</title>
 
-  <!-- Link naar manifest bestand -->
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="https://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/minecraft-icon.png">
 
-  <!-- Displaystijl voor de installatieknop -->
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -24,17 +22,6 @@
       text-align: center;
     }
 
-    .installBtn {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: white;
-      color: black;
-      border: none;
-      border-radius: 5px;
-      display: none; /* De knop is standaard verborgen */
-    }
-
     iframe {
       width: 100%;
       height: 100vh;
@@ -43,54 +30,38 @@
   </style>
 </head>
 <body>
-  
-  <!-- Installeren knop (wordt alleen getoond als de app nog niet geïnstalleerd is) -->
-  <button class="installBtn">Installeer op mijn telefoon</button>
 
-  <!-- Iframe met de inhoud van de app (alleen zichtbaar als geïnstalleerd) -->
   <iframe id="appIframe" src="https://hyperrushnet.github.io/" style="display: none;"></iframe>
 
   <script>
     let deferredPrompt;
-    const installBtn = document.querySelector('.installBtn');
     const iframe = document.getElementById('appIframe');
 
-    // Controleer of de web app in standalone modus draait
+    // Controleer of de web app al in standalone modus draait
     if (window.matchMedia('(display-mode: standalone)').matches) {
-      // Als de app geïnstalleerd is, toon het iframe en verberg de knop
       iframe.style.display = 'block';
-      installBtn.style.display = 'none';
     }
 
-    // Als de pagina geladen is, laat de install knop zien
     window.onload = () => {
-      // Als de app nog niet geïnstalleerd is, toon de install knop
-      if (!window.matchMedia('(display-mode: standalone)').matches) {
-        installBtn.style.display = 'block';
-      }
-    };
-
-    // Luister naar de 'beforeinstallprompt' gebeurtenis
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      
-      installBtn.style.display = 'block';
-      
-      installBtn.addEventListener('click', () => {
+      // Zorg ervoor dat de prompt meteen getoond wordt zodra de pagina geladen is
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Prompt de gebruiker direct zonder op een knop te klikken
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
             console.log('Gebruiker heeft geïnstalleerd');
+            iframe.style.display = 'block'; // Toon de iframe na installatie
           } else {
             console.log('Gebruiker heeft niet geïnstalleerd');
           }
           deferredPrompt = null;
         });
       });
-    });
+    };
 
-    // Service Worker registratie
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js')
         .then((registration) => {
