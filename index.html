@@ -36,11 +36,12 @@
         e.preventDefault(); // Voorkom de standaard prompt
         deferredPrompt = e; // Bewaar de gebeurtenis
 
-        // Toon een alert-achtige melding met de vraag of de gebruiker wil installeren
+        // Toon de eerste bevestigingsdialoog
         const installConfirm = window.confirm('Wil je deze app installeren op je telefoon?');
         
         // Als de gebruiker op "OK" klikt, toon de standaard installatieprompt
         if (installConfirm) {
+          // Toont de daadwerkelijke installatieprompt
           deferredPrompt.prompt();
           deferredPrompt.userChoice.then((choiceResult) => {
             if (choiceResult.outcome === 'accepted') {
@@ -49,7 +50,7 @@
             } else {
               console.log('Gebruiker heeft niet geïnstalleerd');
             }
-            deferredPrompt = null;
+            deferredPrompt = null; // Reset de deferredPrompt na gebruik
           });
         } else {
           console.log('Gebruiker heeft installatie geannuleerd');
